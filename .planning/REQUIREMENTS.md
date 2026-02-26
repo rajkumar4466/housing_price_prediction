@@ -9,8 +9,8 @@
 
 - [ ] **DATA-01**: Generate NJ housing dataset with 7 features (bedrooms, bathrooms, sqft, lot size, year built, zip code, property type)
 - [ ] **DATA-02**: Create train/validation/test splits (70/15/15)
-- [ ] **DATA-03**: Implement shared `format_prompt()` function for text-formatting tabular features
-- [ ] **DATA-04**: Generate synthetic data with county-level NJ price distributions + source public datasets
+- [x] **DATA-03**: Implement shared `format_prompt()` function for text-formatting tabular features
+- [x] **DATA-04**: Generate synthetic data with county-level NJ price distributions + source public datasets
 
 ### Model Training
 
@@ -82,8 +82,8 @@
 |-------------|-------|--------|
 | DATA-01 | Phase 1 | Pending |
 | DATA-02 | Phase 1 | Pending |
-| DATA-03 | Phase 1 | Pending |
-| DATA-04 | Phase 1 | Pending |
+| DATA-03 | Phase 1 | Complete |
+| DATA-04 | Phase 1 | Complete |
 | TRAIN-01 | Phase 2 | Pending |
 | TRAIN-02 | Phase 2 | Pending |
 | EVAL-01 | Phase 3 | Pending |
