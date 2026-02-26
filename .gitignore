@@ -1,0 +1,22 @@
+# Data files (too large for git; regenerate via notebook)
+data/raw/
+data/processed/
+data/splits/
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+notebooks/.ipynb_checkpoints/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# OS
+.DS_Store
+
+# Model artifacts (managed separately)
+*.onnx
+*.pt
+*.bin
