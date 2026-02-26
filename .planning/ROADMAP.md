@@ -29,7 +29,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. `lambda/prompt_utils.py` contains `format_prompt()` and can be imported by both notebooks and the Lambda handler without modification
   3. Synthetic records use county-level NJ price distributions (log-normal with county multipliers), and the price histogram matches known NJ county medians
   4. At least 30% of records derive from public NJ datasets (data.gov or equivalent), and the dataset schema is documented
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Create shared prompt module (lambda/prompt_utils.py) and project scaffold
+- [ ] 01-02-PLAN.md — Build data generation notebook (notebooks/01_data_prep.ipynb) and produce train/val/test JSONL splits
 
 ### Phase 2: QLoRA Training
 **Goal**: A LoRA adapter checkpoint exists on Google Drive, trained from validated Phase 1 data, completing within the 20-minute Colab budget
@@ -81,7 +85,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Data Foundation | 0/TBD | Not started | - |
+| 1. Data Foundation | 0/2 | Not started | - |
 | 2. QLoRA Training | 0/TBD | Not started | - |
 | 3. Evaluation and ONNX Export | 0/TBD | Not started | - |
 | 4. Lambda Container and REST API | 0/TBD | Not started | - |
