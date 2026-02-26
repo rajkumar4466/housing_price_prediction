@@ -12,7 +12,7 @@ This pipeline moves in one strict sequence: curate NJ housing data and define th
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Data Foundation** - Build, validate, and format the NJ housing dataset that all downstream training depends on
+- [x] **Phase 1: Data Foundation** - Build, validate, and format the NJ housing dataset that all downstream training depends on (completed 2026-02-26)
 - [ ] **Phase 2: QLoRA Training** - Fine-tune Qwen2.5-0.5B with 4-bit quantization on Colab GPU within the 20-minute budget
 - [ ] **Phase 3: Evaluation and ONNX Export** - Validate model accuracy and produce a Colab-validated ONNX artifact ready for containerization
 - [ ] **Phase 4: Lambda Container and REST API** - Package ONNX inference into a minimal, deployable Lambda container image
@@ -85,7 +85,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Data Foundation | 1/2 | In Progress|  |
+| 1. Data Foundation | 2/2 | Complete   | 2026-02-26 |
 | 2. QLoRA Training | 0/TBD | Not started | - |
 | 3. Evaluation and ONNX Export | 0/TBD | Not started | - |
 | 4. Lambda Container and REST API | 0/TBD | Not started | - |

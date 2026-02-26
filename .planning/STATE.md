@@ -1,3 +1,16 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+status: unknown
+last_updated: "2026-02-26T23:03:37.226Z"
+progress:
+  total_phases: 1
+  completed_phases: 1
+  total_plans: 2
+  completed_plans: 2
+---
+
 # Project State
 
 ## Project Reference
@@ -48,6 +61,8 @@ Recent decisions affecting current work:
 - [01-01]: lambda/ named after AWS Lambda but clashes with Python reserved keyword — import must use importlib.import_module('lambda.prompt_utils'), not from-import syntax
 - [01-01]: Prompt template in format_prompt() is FINAL training/inference contract — any change requires full data regeneration + retraining
 - [01-01]: zip_code typed as str to preserve leading zeros for NJ zip codes (e.g., '07650')
+- [Phase 01-02]: importlib.import_module used for lambda.prompt_utils import (lambda is Python reserved keyword — from-import raises SyntaxError)
+- [Phase 01-02]: Price-first synthetic generation: county log-normal price generated first, features derived from price for realistic correlations
 
 ### Pending Todos
 
