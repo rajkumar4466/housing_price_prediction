@@ -7,15 +7,15 @@
 
 ### Data Pipeline
 
-- [ ] **DATA-01**: Generate NJ housing dataset with 7 features (bedrooms, bathrooms, sqft, lot size, year built, zip code, property type)
-- [ ] **DATA-02**: Create train/validation/test splits (70/15/15)
+- [x] **DATA-01**: Generate NJ housing dataset with 7 features (bedrooms, bathrooms, sqft, lot size, year built, zip code, property type)
+- [x] **DATA-02**: Create train/validation/test splits (70/15/15)
 - [x] **DATA-03**: Implement shared `format_prompt()` function for text-formatting tabular features
 - [x] **DATA-04**: Generate synthetic data with county-level NJ price distributions + source public datasets
 
 ### Model Training
 
-- [ ] **TRAIN-01**: Fine-tune Qwen2.5-0.5B with QLoRA (4-bit quantization) on Google Colab GPU
-- [ ] **TRAIN-02**: Complete training within 20 minutes on Colab free tier
+- [x] **TRAIN-01**: Fine-tune Qwen2.5-0.5B with QLoRA (4-bit quantization) on Google Colab GPU
+- [x] **TRAIN-02**: Complete training within 20 minutes on Colab free tier
 
 ### Evaluation
 
@@ -80,12 +80,12 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DATA-01 | Phase 1 | Pending |
-| DATA-02 | Phase 1 | Pending |
+| DATA-01 | Phase 1 | Complete |
+| DATA-02 | Phase 1 | Complete |
 | DATA-03 | Phase 1 | Complete |
 | DATA-04 | Phase 1 | Complete |
-| TRAIN-01 | Phase 2 | Pending |
-| TRAIN-02 | Phase 2 | Pending |
+| TRAIN-01 | Phase 2 | Complete |
+| TRAIN-02 | Phase 2 | Complete |
 | EVAL-01 | Phase 3 | Pending |
 | EVAL-02 | Phase 3 | Pending |
 | EVAL-03 | Phase 3 | Pending |

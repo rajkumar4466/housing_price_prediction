@@ -3,11 +3,11 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-last_updated: "2026-02-26T23:03:37.226Z"
+last_updated: "2026-02-27T03:37:00Z"
 progress:
-  total_phases: 1
+  total_phases: 5
   completed_phases: 1
-  total_plans: 2
+  total_plans: 3
   completed_plans: 2
 ---
 
@@ -18,32 +18,33 @@ progress:
 See: .planning/PROJECT.md (updated 2026-02-26)
 
 **Core value:** Accurately predict NJ housing prices from 7 property features using a QLoRA fine-tuned Qwen2.5-0.5B, demonstrating the full ML pipeline from training to production inference.
-**Current focus:** Phase 1 - Data Foundation
+**Current focus:** Phase 2 - QLoRA Training IN PROGRESS
 
 ## Current Position
 
-Phase: 1 of 5 (Data Foundation)
-Plan: 1 of TBD in current phase
-Status: In progress
-Last activity: 2026-02-26 — Completed plan 01-01 (project scaffold and prompt contract)
+Phase: 2 of 5 (QLoRA Training) — IN PROGRESS
+Plan: 1 of 1 in phase 02 — awaiting checkpoint:human-verify (Task 2)
+Status: Phase 2 Plan 1 Task 1 complete; awaiting Colab training execution verification
+Last activity: 2026-02-27 — Completed 02-01 Task 1 (QLoRA training notebook created); checkpoint at Task 2 (Colab run verification)
 
-Progress: [█░░░░░░░░░] 5%
+Progress: [██░░░░░░░░] 20%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 1
-- Average duration: 2 min
-- Total execution time: 0.03 hours
+- Total plans completed: 2
+- Average duration: ~11 min
+- Total execution time: ~22 min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-data-foundation | 1 | 2 min | 2 min |
+| 01-data-foundation | 2 | ~22 min | ~11 min |
+| 02-qlora-training | 1 (partial) | ~5 min | ~5 min |
 
 **Recent Trend:**
-- Last 5 plans: 2 min
+- Last 5 plans: ~2 min, ~20 min, ~5 min
 - Trend: -
 
 *Updated after each plan completion*
@@ -61,21 +62,28 @@ Recent decisions affecting current work:
 - [01-01]: lambda/ named after AWS Lambda but clashes with Python reserved keyword — import must use importlib.import_module('lambda.prompt_utils'), not from-import syntax
 - [01-01]: Prompt template in format_prompt() is FINAL training/inference contract — any change requires full data regeneration + retraining
 - [01-01]: zip_code typed as str to preserve leading zeros for NJ zip codes (e.g., '07650')
-- [Phase 01-02]: importlib.import_module used for lambda.prompt_utils import (lambda is Python reserved keyword — from-import raises SyntaxError)
-- [Phase 01-02]: Price-first synthetic generation: county log-normal price generated first, features derived from price for realistic correlations
+- [01-02]: importlib.import_module used for lambda.prompt_utils import (lambda is Python reserved keyword — from-import raises SyntaxError)
+- [01-02]: Price-first synthetic generation: county log-normal price generated first, features derived from price for realistic correlations
+- [01-02]: Zip code is 3-char county prefix + 2-char random suffix = 5-char string (not 3+3=6)
+- [01-02]: SR1A column name constants in Cell 6 are PLACEHOLDERS — user must update to match actual SR1A file headers after download
+- [01-02]: Cell 9 added post-checkpoint to push dataset to HuggingFace Hub (rajkumar4466/nj-housing-prices) with graceful auth fallback
+- [02-01]: prepare_model_for_kbit_training must appear before get_peft_model in peft imports AND in call order — verification script checks raw string position
+- [02-01]: fp16=True, bf16=False hardcoded for T4 GPU — bf16=True only if user has A100
+- [02-01]: packing=False in SFTTrainer — housing records must not be concatenated; each is one training sample
+- [02-01]: optim=paged_adamw_8bit required for QLoRA memory efficiency on Colab free tier
 
 ### Pending Todos
 
-None.
+- Download SR1A 2024 from NJ Treasury, update Cell 6 column constants, rerun notebook to meet DATA-04 (30% real records) before final production training run
 
 ### Blockers/Concerns
 
-- [Phase 1]: Public NJ housing dataset availability unverified — data.gov/NJ Treasury schema and record count need confirmation before committing to synthetic augmentation ratio
+- [Phase 1 - Open]: DATA-04 30% real records not yet met — current splits are synthetic-only (7,000 records). SR1A download + column mapping required.
 - [Phase 3]: Correct `optimum-cli export onnx --task` flag for Qwen2.5 regression needs empirical verification (may be `feature-extraction` or `text-generation-with-past`)
 - [01-01]: Downstream notebooks must use importlib.import_module('lambda.prompt_utils') — document pattern clearly in notebook cell comments
 
 ## Session Continuity
 
-Last session: 2026-02-26
-Stopped at: Completed 01-01-PLAN.md — project scaffold and prompt contract
+Last session: 2026-02-27
+Stopped at: 02-01-PLAN.md Task 2 checkpoint:human-verify — training notebook complete, awaiting Colab execution and user verification
 Resume file: None

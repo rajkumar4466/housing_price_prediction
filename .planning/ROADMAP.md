@@ -32,8 +32,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 2 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Create shared prompt module (lambda/prompt_utils.py) and project scaffold
-- [ ] 01-02-PLAN.md — Build data generation notebook (notebooks/01_data_prep.ipynb) and produce train/val/test JSONL splits
+- [x] 01-01-PLAN.md — Create shared prompt module (lambda/prompt_utils.py) and project scaffold
+- [x] 01-02-PLAN.md — Build data generation notebook (notebooks/01_data_prep.ipynb) and produce train/val/test JSONL splits
 
 ### Phase 2: QLoRA Training
 **Goal**: A LoRA adapter checkpoint exists on Google Drive, trained from validated Phase 1 data, completing within the 20-minute Colab budget
@@ -85,7 +85,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Data Foundation | 2/2 | Complete   | 2026-02-26 |
+| 1. Data Foundation | 2/2 | Complete   | 2026-02-27 |
 | 2. QLoRA Training | 0/TBD | Not started | - |
 | 3. Evaluation and ONNX Export | 0/TBD | Not started | - |
 | 4. Lambda Container and REST API | 0/TBD | Not started | - |
