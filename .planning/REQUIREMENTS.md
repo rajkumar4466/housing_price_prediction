@@ -19,9 +19,9 @@
 
 ### Evaluation
 
-- [ ] **EVAL-01**: Compute regression metrics on test set: MAE, RMSE, R², MAPE
-- [ ] **EVAL-02**: Generate predicted vs actual scatter plot with matplotlib
-- [ ] **EVAL-03**: Generate training loss curve with matplotlib
+- [x] **EVAL-01**: Compute regression metrics on test set: MAE, RMSE, R², MAPE
+- [x] **EVAL-02**: Generate predicted vs actual scatter plot with matplotlib
+- [x] **EVAL-03**: Generate training loss curve with matplotlib
 
 ### ONNX Export
 
@@ -86,9 +86,9 @@
 | DATA-04 | Phase 1 | Complete |
 | TRAIN-01 | Phase 2 | Complete |
 | TRAIN-02 | Phase 2 | Complete |
-| EVAL-01 | Phase 3 | Pending |
-| EVAL-02 | Phase 3 | Pending |
-| EVAL-03 | Phase 3 | Pending |
+| EVAL-01 | Phase 3 | Complete |
+| EVAL-02 | Phase 3 | Complete |
+| EVAL-03 | Phase 3 | Complete |
 | ONNX-01 | Phase 3 | Pending |
 | ONNX-02 | Phase 3 | Pending |
 | ONNX-03 | Phase 3 | Pending |

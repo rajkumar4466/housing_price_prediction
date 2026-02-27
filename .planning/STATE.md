@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-last_updated: "2026-02-27T17:31:44.000Z"
+last_updated: "2026-02-27T17:43:38.782Z"
 progress:
   total_phases: 5
-  completed_phases: 5
+  completed_phases: 3
   total_plans: 9
-  completed_plans: 6
+  completed_plans: 7
 ---
 
 # Project State
@@ -87,6 +87,8 @@ Recent decisions affecting current work:
 - [05-02]: Deploy workflow tags Docker image with github.ref_name (git tag) AND latest — git tag makes image_uri change on every release so Terraform always triggers Lambda UpdateFunctionCode
 - [05-02]: linux/amd64 platform flag mandatory — Lambda runs x86_64; ARM runner without this flag produces incompatible images
 - [05-02]: GH_ACTIONS_ROLE_ARN stored as GitHub Actions Variable (not Secret) — role ARNs are not sensitive credentials
+- [Phase 03-evaluation-and-onnx-export]: parse_price_from_output inlined in 03_evaluate.ipynb Cell 7 (verbatim copy of lambda/prompt_utils.py) for Colab portability -- no repo clone required
+- [Phase 03-evaluation-and-onnx-export]: 200-sample quick eval runs before full test set in 03_evaluate.ipynb -- fast early feedback signal before 17-52 min full eval on T4
 
 ### Pending Todos
 
