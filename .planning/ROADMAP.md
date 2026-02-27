@@ -57,7 +57,7 @@ Plans:
 **Plans**: TBD
 
 ### Phase 4: Lambda Container and REST API
-**Goal**: A Docker container image with ONNX Runtime (CPU), tokenizer, and handler is pushed to ECR and returns a valid price prediction from a local test invocation
+**Goal**: A Docker container image with ONNX Runtime (CPU), tokenizer, and handler is ready to push to ECR and returns a valid price prediction from a local test invocation
 **Depends on**: Phase 3
 **Requirements**: SERV-01, SERV-02, SERV-03
 **Success Criteria** (what must be TRUE):
