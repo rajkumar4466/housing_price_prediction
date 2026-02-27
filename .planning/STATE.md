@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-last_updated: "2026-02-27T19:09:45.848Z"
+last_updated: "2026-02-27T20:16:00Z"
 progress:
   total_phases: 5
   completed_phases: 4
@@ -22,10 +22,10 @@ See: .planning/PROJECT.md (updated 2026-02-26)
 
 ## Current Position
 
-Phase: 3 of 5 (Evaluation and ONNX Export) — Complete
-Plan: 2 of 2 in phase 03 — Complete (all tasks done, Colab verification APPROVED)
-Status: 04_export.ipynb committed (a080400 with Colab fixes); ONNX-01/02/03 all PASSED on Colab (max_diff=0.000029, ~2.5 GB export, 16.2 min)
-Last activity: 2026-02-27 — Completed 03-02 (ONNX export Colab verified, fixes committed)
+Phase: 4 of 5 (Lambda Container and REST API) — In Progress
+Plan: 2 of 2 in phase 04 — Task 1 complete, paused at Task 2 (checkpoint:human-verify)
+Status: lambda/test_local.sh created (776cfcc); awaiting human to run bash lambda/test_local.sh with model_artifacts/ populated
+Last activity: 2026-02-27 — Completed 04-02 Task 1 (test_local.sh), checkpoint:human-verify pending
 
 Progress: [██████████] 100%
 
@@ -98,6 +98,8 @@ Recent decisions affecting current work:
 - [Phase 03-evaluation-and-onnx-export]: transformers pinned to >=4.45.0,<5.0.0 -- pad_token_id AttributeError in 5.x breaks Qwen2 ONNX export on Colab
 - [Phase 03-evaluation-and-onnx-export]: Raw ORT validation for text-generation-with-past requires position_ids + past_key_values inputs; zero-fill applied
 - [Phase 03-evaluation-and-onnx-export]: ONNX-03 validated on Colab: max_diff=0.000029 < atol=1e-3; ONNX export ~2.5 GB in 16.2 min on CPU
+- [04-02]: docker exec used for --network none offline test — host cannot curl container with no network, but docker exec runs inside the container and bypasses the network layer entirely
+- [04-02]: API Gateway v2 proxy event format (version: "2.0", routeKey, requestContext.http) used for RIE curl test — matches what Mangum expects and what AWS HTTP API sends in production
 
 ### Pending Todos
 
@@ -112,5 +114,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-02-27
-Stopped at: Completed 03-02-PLAN.md — ONNX export verified on Colab (ONNX-01/02/03 all PASSED), notebook fixes committed (a080400), SUMMARY.md created
+Stopped at: 04-02 Task 1 complete (lambda/test_local.sh, commit 776cfcc); checkpoint:human-verify at Task 2 — run bash lambda/test_local.sh with model_artifacts/ populated to continue
 Resume file: None
