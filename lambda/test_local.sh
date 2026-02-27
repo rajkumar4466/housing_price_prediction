@@ -100,12 +100,12 @@ fi
 info ""
 info "=== Verifying no PyTorch in image ==="
 
-if docker run --rm housing-predictor:local pip show torch 2>&1 | grep -qi "not found"; then
-  TORCH_STATUS="PASS"
-  pass "No PyTorch in container"
-else
+if docker run --rm --entrypoint python housing-predictor:local -c "import torch; print('TORCH_FOUND')" 2>/dev/null | grep -q "TORCH_FOUND"; then
   TORCH_STATUS="FAIL"
   fail "PyTorch found in container — Dockerfile must not install torch"
+else
+  TORCH_STATUS="PASS"
+  pass "No PyTorch in container"
 fi
 
 # ---------------------------------------------------------------------------
@@ -147,7 +147,7 @@ RIE_RESPONSE=$(curl -s --max-time 30 -XPOST \
     "routeKey": "POST /predict",
     "rawPath": "/predict",
     "headers": {"content-type": "application/json"},
-    "requestContext": {"http": {"method": "POST", "path": "/predict"}},
+    "requestContext": {"http": {"method": "POST", "path": "/predict", "sourceIp": "127.0.0.1", "protocol": "HTTP/1.1"}, "accountId": "123456789012", "apiId": "test", "stage": "$default", "requestId": "test-id", "time": "01/Jan/2026:00:00:00 +0000", "timeEpoch": 1767225600000},
     "body": "{\"bedrooms\":3,\"bathrooms\":2.0,\"sqft\":1800,\"lot_size\":0.25,\"year_built\":1995,\"zip_code\":\"07030\",\"property_type\":\"Single Family\"}",
     "isBase64Encoded": false
   }' 2>&1 || true)

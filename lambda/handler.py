@@ -117,19 +117,53 @@ def predict(request: PredictRequest) -> PredictResponse:
     input_ids: np.ndarray = inputs["input_ids"]
     attention_mask: np.ndarray = inputs.get("attention_mask")
 
-    # Autoregressive generation loop — NOT single-token prediction.
-    # Prices can be up to 7 digits so we must generate multiple tokens.
-    generated_ids: list[int] = []
+    # Discover KV-cache structure from ONNX model inputs
+    num_kv_layers = sum(1 for inp in session.get_inputs() if inp.name.endswith(".key"))
+    kv_head_dim = 64  # Qwen2.5-0.5B: 2 heads x 64 dim
+    kv_num_heads = 2
 
-    for _ in range(MAX_NEW_TOKENS):
+    # Autoregressive generation loop with KV-cache.
+    # First pass: full prompt. Subsequent passes: single token with cached KV.
+    generated_ids: list[int] = []
+    past_kv = None  # Will be populated after first pass
+
+    for step in range(MAX_NEW_TOKENS):
+        seq_len = input_ids.shape[1]
+
         feed: dict[str, np.ndarray] = {"input_ids": input_ids}
         if attention_mask is not None:
             feed["attention_mask"] = attention_mask
 
+        # Position IDs
+        if past_kv is not None:
+            # Subsequent steps: position = total sequence length - 1
+            past_seq_len = past_kv[0].shape[2]
+            feed["position_ids"] = np.array([[past_seq_len]], dtype=np.int64)
+        else:
+            # First step: position IDs = 0, 1, 2, ..., seq_len-1
+            feed["position_ids"] = np.arange(seq_len, dtype=np.int64).reshape(1, -1)
+
+        # KV-cache inputs
+        for i in range(num_kv_layers):
+            if past_kv is not None:
+                feed[f"past_key_values.{i}.key"] = past_kv[i * 2]
+                feed[f"past_key_values.{i}.value"] = past_kv[i * 2 + 1]
+            else:
+                # First step: empty KV-cache
+                feed[f"past_key_values.{i}.key"] = np.zeros(
+                    (1, kv_num_heads, 0, kv_head_dim), dtype=np.float32
+                )
+                feed[f"past_key_values.{i}.value"] = np.zeros(
+                    (1, kv_num_heads, 0, kv_head_dim), dtype=np.float32
+                )
+
         outputs = session.run(None, feed)
-        # outputs[0] shape: (batch, seq_len, vocab_size)
+        # outputs[0] = logits, outputs[1:] = updated KV-cache
         logits = outputs[0]
         next_token_id: int = int(np.argmax(logits[0, -1, :]))
+
+        # Store updated KV-cache for next step
+        past_kv = outputs[1:]
 
         # Stop on EOS token
         if tokenizer.eos_token_id is not None and next_token_id == tokenizer.eos_token_id:
@@ -137,12 +171,12 @@ def predict(request: PredictRequest) -> PredictResponse:
 
         generated_ids.append(next_token_id)
 
-        # Append next token to running sequence
-        next_token = np.array([[next_token_id]], dtype=input_ids.dtype)
-        input_ids = np.concatenate([input_ids, next_token], axis=1)
+        # Next step: only the new token as input
+        input_ids = np.array([[next_token_id]], dtype=np.int64)
         if attention_mask is not None:
-            next_mask = np.ones((1, 1), dtype=attention_mask.dtype)
-            attention_mask = np.concatenate([attention_mask, next_mask], axis=1)
+            attention_mask = np.concatenate(
+                [attention_mask, np.ones((1, 1), dtype=attention_mask.dtype)], axis=1
+            )
 
     generated_text = tokenizer.decode(generated_ids, skip_special_tokens=True)
     logger.info("Generated text: %r", generated_text)

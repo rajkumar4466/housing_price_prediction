@@ -6,8 +6,11 @@ ENV HF_DATASETS_OFFLINE=1
 ENV TOKENIZERS_PARALLELISM=false
 
 # Install inference-only dependencies
+# transformers is installed with --no-deps to prevent pulling in PyTorch
 COPY requirements.txt ${LAMBDA_TASK_ROOT}/
-RUN pip install --no-cache-dir -r ${LAMBDA_TASK_ROOT}/requirements.txt
+RUN pip install --no-cache-dir -r ${LAMBDA_TASK_ROOT}/requirements.txt && \
+    pip install --no-cache-dir --no-deps "transformers>=4.45.0,<5.0.0" && \
+    pip uninstall -y torch torchvision torchaudio 2>/dev/null; true
 
 # Copy handler and shared prompt utilities
 COPY handler.py ${LAMBDA_TASK_ROOT}/handler.py
