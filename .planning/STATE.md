@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-last_updated: "2026-02-27T18:22:48.628Z"
+last_updated: "2026-02-27T19:01:57.674Z"
 progress:
   total_phases: 5
   completed_phases: 4
@@ -18,14 +18,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-02-26)
 
 **Core value:** Accurately predict NJ housing prices from 7 property features using a QLoRA fine-tuned Qwen2.5-0.5B, demonstrating the full ML pipeline from training to production inference.
-**Current focus:** Phase 3 Plan 2 - ONNX export notebook created; awaiting Colab execution checkpoint
+**Current focus:** Phase 3 complete — all ONNX-01/02/03 requirements met on Colab; all phases complete
 
 ## Current Position
 
-Phase: 3 of 5 (Evaluation and ONNX Export) — In Progress
-Plan: 2 of 2 in phase 03 — Checkpoint reached (Task 2 awaiting Colab execution)
-Status: 04_export.ipynb committed (48f24bc); checkpoint awaiting human Colab execution to verify fp32 merge, ONNX export, and atol=1e-3 numerical validation
-Last activity: 2026-02-27 — Completed 03-02 Task 1 (ONNX export notebook 14 cells); checkpoint at Task 2 (Colab verification)
+Phase: 3 of 5 (Evaluation and ONNX Export) — Complete
+Plan: 2 of 2 in phase 03 — Complete (all tasks done, Colab verification APPROVED)
+Status: 04_export.ipynb committed (a080400 with Colab fixes); ONNX-01/02/03 all PASSED on Colab (max_diff=0.000029, ~2.5 GB export, 16.2 min)
+Last activity: 2026-02-27 — Completed 03-02 (ONNX export Colab verified, fixes committed)
 
 Progress: [██████████] 100%
 
@@ -52,6 +52,7 @@ Progress: [██████████] 100%
 | 03-evaluation-and-onnx-export | 2 | ~13 min | ~6.5 min |
 
 *Updated after each plan completion*
+| Phase 03-evaluation-and-onnx-export P02 | 20 | 2 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -94,6 +95,9 @@ Recent decisions affecting current work:
 - [Phase 03-evaluation-and-onnx-export]: fp32 two-step merge: reload base model with torch_dtype=torch.float32 and device_map=cpu BEFORE loading adapter -- quantized merge silently corrupts weights
 - [Phase 03-evaluation-and-onnx-export]: text-generation-with-past is the correct ONNX task for autoregressive causal LM (NOT feature-extraction)
 - [Phase 03-evaluation-and-onnx-export]: Dynamo fallback cell with --dynamo --opset 18 included for RoPE exporter compatibility issues
+- [Phase 03-evaluation-and-onnx-export]: transformers pinned to >=4.45.0,<5.0.0 -- pad_token_id AttributeError in 5.x breaks Qwen2 ONNX export on Colab
+- [Phase 03-evaluation-and-onnx-export]: Raw ORT validation for text-generation-with-past requires position_ids + past_key_values inputs; zero-fill applied
+- [Phase 03-evaluation-and-onnx-export]: ONNX-03 validated on Colab: max_diff=0.000029 < atol=1e-3; ONNX export ~2.5 GB in 16.2 min on CPU
 
 ### Pending Todos
 
@@ -102,11 +106,11 @@ Recent decisions affecting current work:
 ### Blockers/Concerns
 
 - [Phase 1 - Open]: DATA-04 30% real records not yet met — current splits are synthetic-only (7,000 records). SR1A download + column mapping required.
-- [Phase 3]: Correct `optimum-cli export onnx --task` flag for Qwen2.5 regression needs empirical verification (may be `feature-extraction` or `text-generation-with-past`)
+- [Phase 3 - RESOLVED]: text-generation-with-past confirmed as correct ONNX task for Qwen2.5-0.5B; export PASSED on Colab with max_diff=0.000029
 - [01-01]: Downstream notebooks must use importlib.import_module('lambda.prompt_utils') — document pattern clearly in notebook cell comments
 
 ## Session Continuity
 
 Last session: 2026-02-27
-Stopped at: Checkpoint in 03-02-PLAN.md Task 2 — 04_export.ipynb created (48f24bc), awaiting Colab execution to verify fp32 merge + ONNX export + atol=1e-3 validation (ONNX-01/02/03)
+Stopped at: Completed 03-02-PLAN.md — ONNX export verified on Colab (ONNX-01/02/03 all PASSED), notebook fixes committed (a080400), SUMMARY.md created
 Resume file: None
