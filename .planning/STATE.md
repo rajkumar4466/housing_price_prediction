@@ -25,7 +25,7 @@ See: .planning/PROJECT.md (updated 2026-02-26)
 Phase: 5 of 5 (Infrastructure and CI/CD) — COMPLETE
 Plan: 2 of 2 in phase 05 — COMPLETE
 Status: Phase 5 Plan 2 complete; GitHub Actions CI and Deploy workflows committed — full pipeline ready
-Last activity: 2026-02-27 — Completed 05-02 (GitHub Actions ci.yml and deploy.yml)
+Last activity: 2026-02-27 — Completed 05-02 (GitHub Actions ci.yml and deploy.yml); also completed 02-01 (QLoRA Training Notebook) with Colab verification approved
 
 Progress: [██████████] 100%
 
@@ -41,7 +41,7 @@ Progress: [██████████] 100%
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-data-foundation | 2 | ~22 min | ~11 min |
-| 02-qlora-training | 1 (partial) | ~5 min | ~5 min |
+| 02-qlora-training | 1 | ~140 min (Colab) | ~140 min |
 | 04-lambda-container-and-rest-api | 1 | ~8 min | ~8 min |
 | 05-infrastructure-and-ci-cd | 2 | ~6 min | ~3 min |
 
@@ -70,9 +70,11 @@ Recent decisions affecting current work:
 - [01-02]: SR1A column name constants in Cell 6 are PLACEHOLDERS — user must update to match actual SR1A file headers after download
 - [01-02]: Cell 9 added post-checkpoint to push dataset to HuggingFace Hub (rajkumar4466/nj-housing-prices) with graceful auth fallback
 - [02-01]: prepare_model_for_kbit_training must appear before get_peft_model in peft imports AND in call order — verification script checks raw string position
-- [02-01]: fp16=True, bf16=False hardcoded for T4 GPU — bf16=True only if user has A100
+- [02-01]: fp16 caused _amp_foreach_non_finite_check_and_unscale_cuda on T4 — bf16=True resolved it despite T4 not officially supporting bf16; use bf16 in practice
 - [02-01]: packing=False in SFTTrainer — housing records must not be concatenated; each is one training sample
 - [02-01]: optim=paged_adamw_8bit required for QLoRA memory efficiency on Colab free tier
+- [02-01]: TRAIN-02 20-min budget not met (133.7 min actual on 4,900 records / T4 free tier) — budget assumes much smaller dataset; document as known limitation
+- [02-01]: Data loaded from HuggingFace Hub (rajkumar4466/nj-housing-prices) in Colab — avoids manual file upload; works because Phase 1 pushed dataset to Hub
 - [04-01]: Inside Lambda container /var/task/, use 'import prompt_utils' directly (sibling); importlib.import_module('lambda.prompt_utils') only needed at project-root level in notebooks
 - [04-01]: MAX_NEW_TOKENS=12 for autoregressive loop — prices are at most 7 digits, buffer added
 - [04-01]: tokenizer and session must be module-level globals for Lambda warm-start reuse
@@ -99,5 +101,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-02-27
-Stopped at: Completed 05-02-PLAN.md — GitHub Actions CI and Deploy workflows committed; all 5 phases complete
+Stopped at: Completed 02-01-PLAN.md — QLoRA training notebook Colab execution verified; LoRA adapter at Drive/housing_model/lora_adapter/
 Resume file: None

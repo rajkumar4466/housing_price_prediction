@@ -13,7 +13,7 @@ This pipeline moves in one strict sequence: curate NJ housing data and define th
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Data Foundation** - Build, validate, and format the NJ housing dataset that all downstream training depends on (completed 2026-02-26)
-- [ ] **Phase 2: QLoRA Training** - Fine-tune Qwen2.5-0.5B with 4-bit quantization on Colab GPU within the 20-minute budget
+- [x] **Phase 2: QLoRA Training** - Fine-tune Qwen2.5-0.5B with 4-bit quantization on Colab GPU; LoRA adapter saved to Google Drive (completed 2026-02-27)
 - [ ] **Phase 3: Evaluation and ONNX Export** - Validate model accuracy and produce a Colab-validated ONNX artifact ready for containerization
 - [ ] **Phase 4: Lambda Container and REST API** - Package ONNX inference into a minimal, deployable Lambda container image
 - [x] **Phase 5: Infrastructure and CI/CD** - Provision cloud infrastructure with Terraform and automate deployment with GitHub Actions (completed 2026-02-27)
@@ -43,7 +43,10 @@ Plans:
   1. `02_train.ipynb` runs end-to-end on Colab free tier GPU and finishes in under 20 minutes
   2. LoRA adapter weights are saved to Google Drive and can be reloaded in a fresh Colab session
   3. Training loss decreases across epochs and the loss curve plot is generated without errors
-**Plans**: TBD
+**Plans**: 1 plan
+
+Plans:
+- [x] 02-01-PLAN.md — Build QLoRA training notebook; train Qwen2.5-0.5B on 4,900 NJ housing records; adapter at Drive/housing_model/lora_adapter/ (final loss: 0.6514)
 
 ### Phase 3: Evaluation and ONNX Export
 **Goal**: The model is evaluated against held-out test data, all 4 regression metrics are computed, and a numerically validated ONNX artifact is ready for containerization
@@ -94,7 +97,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Data Foundation | 2/2 | Complete   | 2026-02-27 |
-| 2. QLoRA Training | 0/TBD | Not started | - |
+| 2. QLoRA Training | 1/1 | Complete   | 2026-02-27 |
 | 3. Evaluation and ONNX Export | 0/TBD | Not started | - |
 | 4. Lambda Container and REST API | 1/2 | In Progress|  |
 | 5. Infrastructure and CI/CD | 2/2 | Complete   | 2026-02-27 |
