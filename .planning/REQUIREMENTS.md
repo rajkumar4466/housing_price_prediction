@@ -39,7 +39,7 @@
 
 - [x] **INFRA-01**: Terraform configuration for Lambda + API Gateway + ECR
 - [x] **INFRA-02**: S3 backend for Terraform state
-- [ ] **INFRA-03**: GitHub Actions workflow for lint/test on PR and Terraform plan/apply on merge
+- [x] **INFRA-03**: GitHub Actions workflow for lint/test on PR and Terraform plan/apply on merge
 
 ## v2 Requirements
 
@@ -97,7 +97,7 @@
 | SERV-03 | Phase 4 | Complete |
 | INFRA-01 | Phase 5 | Complete |
 | INFRA-02 | Phase 5 | Complete |
-| INFRA-03 | Phase 5 | Pending |
+| INFRA-03 | Phase 5 | Complete |
 
 **Coverage:**
 - v1 requirements: 18 total

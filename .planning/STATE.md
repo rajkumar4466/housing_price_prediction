@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-last_updated: "2026-02-27T17:26:46.395Z"
+last_updated: "2026-02-27T17:31:44.000Z"
 progress:
   total_phases: 5
-  completed_phases: 2
+  completed_phases: 5
   total_plans: 9
-  completed_plans: 5
+  completed_plans: 6
 ---
 
 # Project State
@@ -18,16 +18,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-02-26)
 
 **Core value:** Accurately predict NJ housing prices from 7 property features using a QLoRA fine-tuned Qwen2.5-0.5B, demonstrating the full ML pipeline from training to production inference.
-**Current focus:** Phase 5 - Infrastructure and CI/CD IN PROGRESS
+**Current focus:** Phase 5 - Infrastructure and CI/CD COMPLETE — All 5 phases done
 
 ## Current Position
 
-Phase: 5 of 5 (Infrastructure and CI/CD) — IN PROGRESS
-Plan: 1 of 2 in phase 05 — COMPLETE
-Status: Phase 5 Plan 1 complete; Terraform IaC (versions.tf, main.tf, variables.tf, outputs.tf) committed and ready for terraform init/apply
-Last activity: 2026-02-27 — Completed 05-01 (Terraform config for ECR, Lambda, API Gateway v2, IAM, OIDC, S3 backend)
+Phase: 5 of 5 (Infrastructure and CI/CD) — COMPLETE
+Plan: 2 of 2 in phase 05 — COMPLETE
+Status: Phase 5 Plan 2 complete; GitHub Actions CI and Deploy workflows committed — full pipeline ready
+Last activity: 2026-02-27 — Completed 05-02 (GitHub Actions ci.yml and deploy.yml)
 
-Progress: [█████░░░░░] 50%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
@@ -43,7 +43,7 @@ Progress: [█████░░░░░] 50%
 | 01-data-foundation | 2 | ~22 min | ~11 min |
 | 02-qlora-training | 1 (partial) | ~5 min | ~5 min |
 | 04-lambda-container-and-rest-api | 1 | ~8 min | ~8 min |
-| 05-infrastructure-and-ci-cd | 1 | ~4 min | ~4 min |
+| 05-infrastructure-and-ci-cd | 2 | ~6 min | ~3 min |
 
 **Recent Trend:**
 - Last 5 plans: ~2 min, ~20 min, ~5 min, ~8 min, ~4 min
@@ -81,6 +81,10 @@ Recent decisions affecting current work:
 - [Phase 05-infrastructure-and-ci-cd]: thumbprint_list=[] for GitHub OIDC provider (AWS trusts GitHub CA natively since December 2024)
 - [Phase 05-infrastructure-and-ci-cd]: payload_format_version=2.0 on API Gateway integration (required for Mangum event parsing)
 - [Phase 05-infrastructure-and-ci-cd]: Lambda function omits handler and runtime fields (invalid for package_type=Image)
+- [05-02]: CI workflow has no AWS credentials — unit tests mock ONNX/model; no cloud access needed for lint+test
+- [05-02]: Deploy workflow tags Docker image with github.ref_name (git tag) AND latest — git tag makes image_uri change on every release so Terraform always triggers Lambda UpdateFunctionCode
+- [05-02]: linux/amd64 platform flag mandatory — Lambda runs x86_64; ARM runner without this flag produces incompatible images
+- [05-02]: GH_ACTIONS_ROLE_ARN stored as GitHub Actions Variable (not Secret) — role ARNs are not sensitive credentials
 
 ### Pending Todos
 
@@ -95,5 +99,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-02-27
-Stopped at: Completed 05-01-PLAN.md — Terraform IaC for Lambda, API Gateway v2, ECR, IAM, OIDC committed
+Stopped at: Completed 05-02-PLAN.md — GitHub Actions CI and Deploy workflows committed; all 5 phases complete
 Resume file: None

@@ -16,7 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 2: QLoRA Training** - Fine-tune Qwen2.5-0.5B with 4-bit quantization on Colab GPU within the 20-minute budget
 - [ ] **Phase 3: Evaluation and ONNX Export** - Validate model accuracy and produce a Colab-validated ONNX artifact ready for containerization
 - [ ] **Phase 4: Lambda Container and REST API** - Package ONNX inference into a minimal, deployable Lambda container image
-- [ ] **Phase 5: Infrastructure and CI/CD** - Provision cloud infrastructure with Terraform and automate deployment with GitHub Actions
+- [x] **Phase 5: Infrastructure and CI/CD** - Provision cloud infrastructure with Terraform and automate deployment with GitHub Actions (completed 2026-02-27)
 
 ## Phase Details
 
@@ -80,7 +80,11 @@ Plans:
   2. A `curl` smoke test against the live API Gateway endpoint returns a predicted price with HTTP 200
   3. A GitHub Actions PR run shows lint + Lambda handler tests passing; a tagged commit triggers image build, ECR push, and `terraform apply` without manual steps
   4. Terraform state is stored in an S3 backend (no local `terraform.tfstate` committed to the repository)
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [x] 05-01-PLAN.md -- Create Terraform IaC (versions.tf, main.tf, variables.tf, outputs.tf) for ECR, Lambda, API Gateway v2, IAM, OIDC, S3 backend
+- [x] 05-02-PLAN.md -- Create GitHub Actions CI (ci.yml) and Deploy (deploy.yml) workflows
 
 ## Progress
 
@@ -93,4 +97,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 2. QLoRA Training | 0/TBD | Not started | - |
 | 3. Evaluation and ONNX Export | 0/TBD | Not started | - |
 | 4. Lambda Container and REST API | 1/2 | In Progress|  |
-| 5. Infrastructure and CI/CD | 1/2 | In Progress|  |
+| 5. Infrastructure and CI/CD | 2/2 | Complete   | 2026-02-27 |
