@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Data Foundation** - Build, validate, and format the NJ housing dataset that all downstream training depends on (completed 2026-02-26)
 - [x] **Phase 2: QLoRA Training** - Fine-tune Qwen2.5-0.5B with 4-bit quantization on Colab GPU; LoRA adapter saved to Google Drive (completed 2026-02-27)
-- [ ] **Phase 3: Evaluation and ONNX Export** - Validate model accuracy and produce a Colab-validated ONNX artifact ready for containerization
+- [x] **Phase 3: Evaluation and ONNX Export** - Validate model accuracy and produce a Colab-validated ONNX artifact ready for containerization (completed 2026-02-27)
 - [ ] **Phase 4: Lambda Container and REST API** - Package ONNX inference into a minimal, deployable Lambda container image
 - [x] **Phase 5: Infrastructure and CI/CD** - Provision cloud infrastructure with Terraform and automate deployment with GitHub Actions (completed 2026-02-27)
 
@@ -98,6 +98,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 |-------|----------------|--------|-----------|
 | 1. Data Foundation | 2/2 | Complete   | 2026-02-27 |
 | 2. QLoRA Training | 1/1 | Complete   | 2026-02-27 |
-| 3. Evaluation and ONNX Export | 1/2 | In Progress|  |
+| 3. Evaluation and ONNX Export | 2/2 | Complete   | 2026-02-27 |
 | 4. Lambda Container and REST API | 1/2 | In Progress|  |
 | 5. Infrastructure and CI/CD | 2/2 | Complete   | 2026-02-27 |

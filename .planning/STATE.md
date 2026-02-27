@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-last_updated: "2026-02-27T17:43:38.782Z"
+last_updated: "2026-02-27T18:22:48.628Z"
 progress:
   total_phases: 5
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 9
-  completed_plans: 7
+  completed_plans: 8
 ---
 
 # Project State
@@ -18,14 +18,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-02-26)
 
 **Core value:** Accurately predict NJ housing prices from 7 property features using a QLoRA fine-tuned Qwen2.5-0.5B, demonstrating the full ML pipeline from training to production inference.
-**Current focus:** Phase 5 - Infrastructure and CI/CD COMPLETE — All 5 phases done
+**Current focus:** Phase 3 Plan 2 - ONNX export notebook created; awaiting Colab execution checkpoint
 
 ## Current Position
 
-Phase: 5 of 5 (Infrastructure and CI/CD) — COMPLETE
-Plan: 2 of 2 in phase 05 — COMPLETE
-Status: Phase 5 Plan 2 complete; GitHub Actions CI and Deploy workflows committed — full pipeline ready
-Last activity: 2026-02-27 — Completed 03-01 (Evaluation Notebook) with Colab verification approved: MAE $140,141, RMSE $190,172, R2 0.6359, MAPE 23.0%; EVAL-01/02/03 PASSED
+Phase: 3 of 5 (Evaluation and ONNX Export) — In Progress
+Plan: 2 of 2 in phase 03 — Checkpoint reached (Task 2 awaiting Colab execution)
+Status: 04_export.ipynb committed (48f24bc); checkpoint awaiting human Colab execution to verify fp32 merge, ONNX export, and atol=1e-3 numerical validation
+Last activity: 2026-02-27 — Completed 03-02 Task 1 (ONNX export notebook 14 cells); checkpoint at Task 2 (Colab verification)
 
 Progress: [██████████] 100%
 
@@ -48,6 +48,8 @@ Progress: [██████████] 100%
 **Recent Trend:**
 - Last 5 plans: ~2 min, ~20 min, ~5 min, ~8 min, ~4 min
 - Trend: Stable
+
+| 03-evaluation-and-onnx-export | 2 | ~13 min | ~6.5 min |
 
 *Updated after each plan completion*
 
@@ -89,6 +91,9 @@ Recent decisions affecting current work:
 - [05-02]: GH_ACTIONS_ROLE_ARN stored as GitHub Actions Variable (not Secret) — role ARNs are not sensitive credentials
 - [Phase 03-evaluation-and-onnx-export]: parse_price_from_output inlined in 03_evaluate.ipynb Cell 7 (verbatim copy of lambda/prompt_utils.py) for Colab portability -- no repo clone required
 - [Phase 03-evaluation-and-onnx-export]: 200-sample quick eval runs before full test set in 03_evaluate.ipynb -- fast early feedback signal before 17-52 min full eval on T4
+- [Phase 03-evaluation-and-onnx-export]: fp32 two-step merge: reload base model with torch_dtype=torch.float32 and device_map=cpu BEFORE loading adapter -- quantized merge silently corrupts weights
+- [Phase 03-evaluation-and-onnx-export]: text-generation-with-past is the correct ONNX task for autoregressive causal LM (NOT feature-extraction)
+- [Phase 03-evaluation-and-onnx-export]: Dynamo fallback cell with --dynamo --opset 18 included for RoPE exporter compatibility issues
 
 ### Pending Todos
 
@@ -103,5 +108,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-02-27
-Stopped at: Completed 03-01-PLAN.md — Evaluation notebook Colab execution verified; MAE $140,141 RMSE $190,172 R2 0.6359 MAPE 23.0%; plots saved to Drive/housing_model/plots/
+Stopped at: Checkpoint in 03-02-PLAN.md Task 2 — 04_export.ipynb created (48f24bc), awaiting Colab execution to verify fp32 merge + ONNX export + atol=1e-3 validation (ONNX-01/02/03)
 Resume file: None

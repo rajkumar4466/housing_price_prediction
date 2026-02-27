@@ -25,9 +25,9 @@
 
 ### ONNX Export
 
-- [ ] **ONNX-01**: Merge LoRA weights into base model (fp32 reload → merge_and_unload)
-- [ ] **ONNX-02**: Export merged model to ONNX format via optimum
-- [ ] **ONNX-03**: Validate ONNX numerical accuracy against PyTorch output on Colab
+- [x] **ONNX-01**: Merge LoRA weights into base model (fp32 reload → merge_and_unload)
+- [x] **ONNX-02**: Export merged model to ONNX format via optimum
+- [x] **ONNX-03**: Validate ONNX numerical accuracy against PyTorch output on Colab
 
 ### Lambda Serving
 
@@ -89,9 +89,9 @@
 | EVAL-01 | Phase 3 | Complete |
 | EVAL-02 | Phase 3 | Complete |
 | EVAL-03 | Phase 3 | Complete |
-| ONNX-01 | Phase 3 | Pending |
-| ONNX-02 | Phase 3 | Pending |
-| ONNX-03 | Phase 3 | Pending |
+| ONNX-01 | Phase 3 | Complete |
+| ONNX-02 | Phase 3 | Complete |
+| ONNX-03 | Phase 3 | Complete |
 | SERV-01 | Phase 4 | Complete |
 | SERV-02 | Phase 4 | Complete |
 | SERV-03 | Phase 4 | Complete |
