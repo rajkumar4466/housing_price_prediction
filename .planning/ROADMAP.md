@@ -93,4 +93,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 2. QLoRA Training | 0/TBD | Not started | - |
 | 3. Evaluation and ONNX Export | 0/TBD | Not started | - |
 | 4. Lambda Container and REST API | 1/2 | In Progress|  |
-| 5. Infrastructure and CI/CD | 0/TBD | Not started | - |
+| 5. Infrastructure and CI/CD | 1/2 | In Progress|  |

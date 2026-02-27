@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-last_updated: "2026-02-27T17:08:01Z"
+last_updated: "2026-02-27T17:26:46.395Z"
 progress:
   total_phases: 5
-  completed_phases: 1
-  total_plans: 3
-  completed_plans: 3
+  completed_phases: 2
+  total_plans: 9
+  completed_plans: 5
 ---
 
 # Project State
@@ -18,16 +18,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-02-26)
 
 **Core value:** Accurately predict NJ housing prices from 7 property features using a QLoRA fine-tuned Qwen2.5-0.5B, demonstrating the full ML pipeline from training to production inference.
-**Current focus:** Phase 4 - Lambda Container and REST API IN PROGRESS
+**Current focus:** Phase 5 - Infrastructure and CI/CD IN PROGRESS
 
 ## Current Position
 
-Phase: 4 of 5 (Lambda Container and REST API) — IN PROGRESS
-Plan: 1 of 2 in phase 04 — COMPLETE
-Status: Phase 4 Plan 1 complete; handler.py, Dockerfile, requirements.txt committed and ready for docker build
-Last activity: 2026-02-27 — Completed 04-01 (Lambda handler, Dockerfile, requirements.txt)
+Phase: 5 of 5 (Infrastructure and CI/CD) — IN PROGRESS
+Plan: 1 of 2 in phase 05 — COMPLETE
+Status: Phase 5 Plan 1 complete; Terraform IaC (versions.tf, main.tf, variables.tf, outputs.tf) committed and ready for terraform init/apply
+Last activity: 2026-02-27 — Completed 05-01 (Terraform config for ECR, Lambda, API Gateway v2, IAM, OIDC, S3 backend)
 
-Progress: [███░░░░░░░] 30%
+Progress: [█████░░░░░] 50%
 
 ## Performance Metrics
 
@@ -43,10 +43,11 @@ Progress: [███░░░░░░░] 30%
 | 01-data-foundation | 2 | ~22 min | ~11 min |
 | 02-qlora-training | 1 (partial) | ~5 min | ~5 min |
 | 04-lambda-container-and-rest-api | 1 | ~8 min | ~8 min |
+| 05-infrastructure-and-ci-cd | 1 | ~4 min | ~4 min |
 
 **Recent Trend:**
-- Last 5 plans: ~2 min, ~20 min, ~5 min, ~8 min
-- Trend: -
+- Last 5 plans: ~2 min, ~20 min, ~5 min, ~8 min, ~4 min
+- Trend: Stable
 
 *Updated after each plan completion*
 
@@ -76,6 +77,10 @@ Recent decisions affecting current work:
 - [04-01]: MAX_NEW_TOKENS=12 for autoregressive loop — prices are at most 7 digits, buffer added
 - [04-01]: tokenizer and session must be module-level globals for Lambda warm-start reuse
 - [04-01]: lambda/model_artifacts/ gitignored — Qwen2.5-0.5B ONNX is 500MB+, exceeds GitHub 100MB limit
+- [Phase 05-infrastructure-and-ci-cd]: use_lockfile=true for S3 backend locking (DynamoDB locking deprecated in Terraform 1.10+)
+- [Phase 05-infrastructure-and-ci-cd]: thumbprint_list=[] for GitHub OIDC provider (AWS trusts GitHub CA natively since December 2024)
+- [Phase 05-infrastructure-and-ci-cd]: payload_format_version=2.0 on API Gateway integration (required for Mangum event parsing)
+- [Phase 05-infrastructure-and-ci-cd]: Lambda function omits handler and runtime fields (invalid for package_type=Image)
 
 ### Pending Todos
 
@@ -90,5 +95,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-02-27
-Stopped at: Completed 04-01-PLAN.md — Lambda handler, Dockerfile, requirements.txt committed
+Stopped at: Completed 05-01-PLAN.md — Terraform IaC for Lambda, API Gateway v2, ECR, IAM, OIDC committed
 Resume file: None
