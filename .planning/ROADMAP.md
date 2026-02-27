@@ -65,7 +65,11 @@ Plans:
   2. The container image contains no PyTorch or bitsandbytes — only `onnxruntime-cpu`, tokenizer files, `fastapi`, and `mangum`
   3. `docker run --network none` successfully runs a prediction (confirms tokenizer is bundled, not fetched at runtime)
   4. The `InferenceSession` and tokenizer are initialized as module-level globals (verified by a single cold-start log showing model load once per container lifetime)
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 04-01-PLAN.md -- Create Lambda handler (handler.py), requirements.txt, and Dockerfile
+- [ ] 04-02-PLAN.md -- Build Docker image and verify locally with RIE + offline test
 
 ### Phase 5: Infrastructure and CI/CD
 **Goal**: Lambda and API Gateway are provisioned by Terraform, the ECR image is deployed, and a live API endpoint returns a price prediction on a smoke test
