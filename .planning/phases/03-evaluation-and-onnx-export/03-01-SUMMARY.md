@@ -57,22 +57,23 @@ completed: 2026-02-27
 - **Duration:** ~9 min (notebook creation)
 - **Started:** 2026-02-27T17:40:16Z
 - **Completed:** 2026-02-27T17:49:00Z
-- **Tasks:** 1 of 2 completed locally (Task 2 is Colab human-verify checkpoint)
+- **Tasks:** 2 of 2 complete (Task 2 checkpoint approved with Colab metrics)
 - **Files modified:** 2
 
 ## Accomplishments
 - Created `notebooks/03_evaluate.ipynb` with 15 cells covering the full evaluation pipeline
 - Updated `notebooks/02_train.ipynb` with cell-13b-save-log-history that saves trainer.state.log_history as JSON to Google Drive (enables EVAL-03 loss curve regeneration)
 - Evaluation notebook covers: Drive mount, pip installs, 4-bit model + LoRA adapter load, parse_price_from_output (inlined), inference function, 200-sample quick eval, full test set eval, all 4 metrics (EVAL-01), scatter plot with y=x line (EVAL-02), loss curve from JSON (EVAL-03), and summary with requirement status checks
+- Colab verification APPROVED with metrics: MAE $140,141 | RMSE $190,172 | R2 0.6359 | MAPE 23.0% — EVAL-01, EVAL-02, EVAL-03 all PASSED
 
 ## Task Commits
 
 Each task was committed atomically:
 
 1. **Task 1: Create evaluation notebook and update training notebook with log history save** - `56bff62` (feat)
-2. **Task 2: Run evaluation notebook on Colab and verify metrics and plots** - Awaiting human checkpoint (Colab verification)
+2. **Task 2: Run evaluation notebook on Colab and verify metrics and plots** - Colab execution approved (MAE $140,141, RMSE $190,172, R2 0.6359, MAPE 23.0%; EVAL-01/02/03 PASSED)
 
-**Plan metadata:** (pending after checkpoint approval)
+**Plan metadata:** `7b1092f` (docs: complete evaluation notebook plan summary)
 
 ## Files Created/Modified
 - `notebooks/03_evaluate.ipynb` - Full evaluation pipeline notebook for Google Colab (15 cells)
@@ -102,11 +103,24 @@ None - all automated verification checks passed on first attempt.
 - Run all cells: Runtime > Run all
 - Verify: all 4 metrics printed, both PNG plots saved to Drive, EVAL-01/02/03 show PASSED in summary
 
+## Verified Metrics (Colab Run)
+
+| Metric | Value |
+|--------|-------|
+| MAE    | $140,141 |
+| RMSE   | $190,172 |
+| R2     | 0.6359 |
+| MAPE   | 23.0% |
+
+EVAL-01: PASSED (all 4 metrics computed on full test set)
+EVAL-02: PASSED (predicted_vs_actual.png saved to Google Drive)
+EVAL-03: PASSED (training_loss_curve.png saved to Google Drive)
+
 ## Next Phase Readiness
-- Evaluation notebook ready for Colab execution
-- After Colab verification (checkpoint approval), phase 3 plan 1 is complete
-- Phase 3 plan 2 (ONNX export) can proceed once metrics are confirmed
-- eval_metrics.json on Drive will contain quantitative evidence of model quality before ONNX export
+- Colab evaluation complete and approved — all 4 regression metrics verified on full test set
+- Scatter plot and loss curve saved to Google Drive at housing_model/plots/
+- eval_metrics.json on Drive provides programmatic access to metric results
+- Phase 3 plan 2 (ONNX export notebook) can proceed
 
 ---
 *Phase: 03-evaluation-and-onnx-export*

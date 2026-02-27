@@ -25,7 +25,7 @@ See: .planning/PROJECT.md (updated 2026-02-26)
 Phase: 5 of 5 (Infrastructure and CI/CD) — COMPLETE
 Plan: 2 of 2 in phase 05 — COMPLETE
 Status: Phase 5 Plan 2 complete; GitHub Actions CI and Deploy workflows committed — full pipeline ready
-Last activity: 2026-02-27 — Completed 05-02 (GitHub Actions ci.yml and deploy.yml); also completed 02-01 (QLoRA Training Notebook) with Colab verification approved
+Last activity: 2026-02-27 — Completed 03-01 (Evaluation Notebook) with Colab verification approved: MAE $140,141, RMSE $190,172, R2 0.6359, MAPE 23.0%; EVAL-01/02/03 PASSED
 
 Progress: [██████████] 100%
 
@@ -103,5 +103,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-02-27
-Stopped at: Completed 02-01-PLAN.md — QLoRA training notebook Colab execution verified; LoRA adapter at Drive/housing_model/lora_adapter/
+Stopped at: Completed 03-01-PLAN.md — Evaluation notebook Colab execution verified; MAE $140,141 RMSE $190,172 R2 0.6359 MAPE 23.0%; plots saved to Drive/housing_model/plots/
 Resume file: None
