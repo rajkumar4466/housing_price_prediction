@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-last_updated: "2026-02-27T03:37:00Z"
+last_updated: "2026-02-27T17:08:01Z"
 progress:
   total_phases: 5
   completed_phases: 1
   total_plans: 3
-  completed_plans: 2
+  completed_plans: 3
 ---
 
 # Project State
@@ -18,16 +18,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-02-26)
 
 **Core value:** Accurately predict NJ housing prices from 7 property features using a QLoRA fine-tuned Qwen2.5-0.5B, demonstrating the full ML pipeline from training to production inference.
-**Current focus:** Phase 2 - QLoRA Training IN PROGRESS
+**Current focus:** Phase 4 - Lambda Container and REST API IN PROGRESS
 
 ## Current Position
 
-Phase: 2 of 5 (QLoRA Training) — IN PROGRESS
-Plan: 1 of 1 in phase 02 — awaiting checkpoint:human-verify (Task 2)
-Status: Phase 2 Plan 1 Task 1 complete; awaiting Colab training execution verification
-Last activity: 2026-02-27 — Completed 02-01 Task 1 (QLoRA training notebook created); checkpoint at Task 2 (Colab run verification)
+Phase: 4 of 5 (Lambda Container and REST API) — IN PROGRESS
+Plan: 1 of 2 in phase 04 — COMPLETE
+Status: Phase 4 Plan 1 complete; handler.py, Dockerfile, requirements.txt committed and ready for docker build
+Last activity: 2026-02-27 — Completed 04-01 (Lambda handler, Dockerfile, requirements.txt)
 
-Progress: [██░░░░░░░░] 20%
+Progress: [███░░░░░░░] 30%
 
 ## Performance Metrics
 
@@ -42,9 +42,10 @@ Progress: [██░░░░░░░░] 20%
 |-------|-------|-------|----------|
 | 01-data-foundation | 2 | ~22 min | ~11 min |
 | 02-qlora-training | 1 (partial) | ~5 min | ~5 min |
+| 04-lambda-container-and-rest-api | 1 | ~8 min | ~8 min |
 
 **Recent Trend:**
-- Last 5 plans: ~2 min, ~20 min, ~5 min
+- Last 5 plans: ~2 min, ~20 min, ~5 min, ~8 min
 - Trend: -
 
 *Updated after each plan completion*
@@ -71,6 +72,10 @@ Recent decisions affecting current work:
 - [02-01]: fp16=True, bf16=False hardcoded for T4 GPU — bf16=True only if user has A100
 - [02-01]: packing=False in SFTTrainer — housing records must not be concatenated; each is one training sample
 - [02-01]: optim=paged_adamw_8bit required for QLoRA memory efficiency on Colab free tier
+- [04-01]: Inside Lambda container /var/task/, use 'import prompt_utils' directly (sibling); importlib.import_module('lambda.prompt_utils') only needed at project-root level in notebooks
+- [04-01]: MAX_NEW_TOKENS=12 for autoregressive loop — prices are at most 7 digits, buffer added
+- [04-01]: tokenizer and session must be module-level globals for Lambda warm-start reuse
+- [04-01]: lambda/model_artifacts/ gitignored — Qwen2.5-0.5B ONNX is 500MB+, exceeds GitHub 100MB limit
 
 ### Pending Todos
 
@@ -85,5 +90,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-02-27
-Stopped at: 02-01-PLAN.md Task 2 checkpoint:human-verify — training notebook complete, awaiting Colab execution and user verification
+Stopped at: Completed 04-01-PLAN.md — Lambda handler, Dockerfile, requirements.txt committed
 Resume file: None

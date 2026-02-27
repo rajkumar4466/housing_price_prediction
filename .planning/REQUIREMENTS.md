@@ -31,9 +31,9 @@
 
 ### Lambda Serving
 
-- [ ] **SERV-01**: Implement ONNX Runtime inference handler for price prediction
-- [ ] **SERV-02**: Expose REST API endpoint accepting 7 property features, returning predicted price
-- [ ] **SERV-03**: Build minimal container image (onnxruntime + tokenizer only, no PyTorch)
+- [x] **SERV-01**: Implement ONNX Runtime inference handler for price prediction
+- [x] **SERV-02**: Expose REST API endpoint accepting 7 property features, returning predicted price
+- [x] **SERV-03**: Build minimal container image (onnxruntime + tokenizer only, no PyTorch)
 
 ### Infrastructure
 
@@ -92,9 +92,9 @@
 | ONNX-01 | Phase 3 | Pending |
 | ONNX-02 | Phase 3 | Pending |
 | ONNX-03 | Phase 3 | Pending |
-| SERV-01 | Phase 4 | Pending |
-| SERV-02 | Phase 4 | Pending |
-| SERV-03 | Phase 4 | Pending |
+| SERV-01 | Phase 4 | Complete |
+| SERV-02 | Phase 4 | Complete |
+| SERV-03 | Phase 4 | Complete |
 | INFRA-01 | Phase 5 | Pending |
 | INFRA-02 | Phase 5 | Pending |
 | INFRA-03 | Phase 5 | Pending |
