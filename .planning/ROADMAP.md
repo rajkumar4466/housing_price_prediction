@@ -17,6 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: Evaluation and ONNX Export** - Validate model accuracy and produce a Colab-validated ONNX artifact ready for containerization (completed 2026-02-27)
 - [ ] **Phase 4: Lambda Container and REST API** - Package ONNX inference into a minimal, deployable Lambda container image
 - [x] **Phase 5: Infrastructure and CI/CD** - Provision cloud infrastructure with Terraform and automate deployment with GitHub Actions (completed 2026-02-27)
+- [ ] **Phase 6: XGBoost Baseline** - Train XGBoost on same tabular data to establish proper baseline comparison against QLoRA
 
 ## Phase Details
 
@@ -89,10 +90,25 @@ Plans:
 - [x] 05-01-PLAN.md -- Create Terraform IaC (versions.tf, main.tf, variables.tf, outputs.tf) for ECR, Lambda, API Gateway v2, IAM, OIDC, S3 backend
 - [x] 05-02-PLAN.md -- Create GitHub Actions CI (ci.yml) and Deploy (deploy.yml) workflows
 
+### Phase 6: XGBoost Baseline
+**Goal**: An XGBoost model trained on the same 7-feature NJ housing data demonstrates when gradient-boosted trees outperform LLMs on tabular regression, with a side-by-side metrics comparison
+**Depends on**: Phase 1 (dataset)
+**Requirements**: BASELINE-01, BASELINE-02
+**Success Criteria** (what must be TRUE):
+  1. Tabular dataset (`rajkumar4466/nj-housing-prices-tabular`) is pushed to HuggingFace with all 7 features + price
+  2. XGBoost model is trained with hyperparameter tuning and saved to `models/xgboost_baseline.json`
+  3. MAE, RMSE, R², MAPE computed on held-out test set and saved to `models/xgboost_metrics.json`
+  4. Predicted vs actual scatter plot and feature importance chart generated
+  5. Side-by-side comparison table (QLoRA vs XGBoost) saved to `models/comparison.json`
+**Plans**: 1 plan
+
+Plans:
+- [ ] 06-01-PLAN.md — Single notebook (05_xgboost_baseline.ipynb) covering data parsing, training, evaluation, and comparison
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
+Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -101,3 +117,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 3. Evaluation and ONNX Export | 2/2 | Complete   | 2026-02-27 |
 | 4. Lambda Container and REST API | 1/2 | In Progress|  |
 | 5. Infrastructure and CI/CD | 2/2 | Complete   | 2026-02-27 |
+| 6. XGBoost Baseline | 0/1 | In Progress |  |
