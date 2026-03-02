@@ -24,5 +24,5 @@ variable "lambda_timeout" {
 variable "github_repo" {
   description = "GitHub repository in format org/repo for OIDC trust policy"
   type        = string
-  default     = "rajkumar4466/housing_price_predictor"
+  default     = "rajkumar4466/housing_price_prediction"
 }
