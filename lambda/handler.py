@@ -100,6 +100,8 @@ def predict(request: PredictRequest) -> PredictResponse:
     Runs autoregressive token generation through the ONNX-exported Qwen2.5-0.5B
     model, then parses the price from the generated text.
     """
+    logger.info("Received prediction request: %s", request.model_dump())
+
     # Build the prompt using the shared utility (single source of truth)
     prompt = format_prompt(
         bedrooms=request.bedrooms,
