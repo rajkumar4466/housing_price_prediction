@@ -61,7 +61,10 @@ logger.info("ONNX session loaded successfully")
 
 app = FastAPI(
     title="NJ Housing Price Predictor",
-    description="Predicts NJ housing prices from 7 property features using a QLoRA fine-tuned Qwen2.5-0.5B exported to ONNX.",
+    description=(
+        "Predicts NJ housing prices from 7 property features "
+        "using a QLoRA fine-tuned Qwen2.5-0.5B exported to ONNX."
+    ),
     version="1.0.0",
 )
 
