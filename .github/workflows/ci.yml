@@ -25,6 +25,8 @@ jobs:
           flake8 lambda/ tests/ --max-line-length=120
 
       - name: Run Lambda handler unit tests
+        env:
+          PYTHONPATH: lambda/
         run: |
           pytest tests/test_handler.py -v
 
